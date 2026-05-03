@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Si el archivo o carpeta existe físicamente, sírvelo directo
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Si no existe, redirige todo a tu router
+RewriteRule ^ routes/api.php [QSA,L]

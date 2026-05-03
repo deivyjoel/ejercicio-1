@@ -8,14 +8,16 @@
                     "mysql:host=localhost;dbname=banco_sistema_atc;charset=utf8mb4", 
                     "root", 
                     "",
-                    // Permite que PDO lance errores
+                    
+                    // Permite que PDO lance una excepción automaticamente si falla prepare(), bindValue(), execute()
                     [
                         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                     ]
                     );
                     return $conectar;
             }catch(Exception $e){
-                print "Error en DB! ". $e->getMessage();
+                http_response_code(500);
+                echo json_encode(["success" => false, "error" => "Error de conexión a la base de datos"]);
                 die();
             }
         }

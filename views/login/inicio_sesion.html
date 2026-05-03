@@ -13,7 +13,7 @@
 
             <div class="card" id="card-login">
                 <h2>Inicio sesión</h2>
-                <form action="/login" method="POST">
+                <form id="form-login">
                     <div class="campo">
                         <label for="email">Correo electrónico</label>
                         <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
@@ -29,7 +29,7 @@
 
             <div class="card oculto" id="card-registro">
                 <h2>Crear cuenta</h2>
-                <form action="/registro" method="POST">
+                <form id="form-registro">
                     <div class="campo">
                         <label for="nombre">Nombre completo</label>
                         <input type="text" id="nombre" name="nombre" placeholder="Deivy Torres" required>
@@ -45,16 +45,10 @@
                     <button type="submit" class="btn-primary">Crear cuenta</button>
                 </form>
                 <p class="link-cambio">¿Ya tienes cuenta? <a href="#" onclick="mostrar('login')">Inicia sesión</a></p>
+                <script src="login.js"></script>
             </div>
+    
 
         </div>
-
-        <script>
-            function mostrar(cual) {
-                document.getElementById('card-login').classList.add('oculto');
-                document.getElementById('card-registro').classList.add('oculto');
-                document.getElementById('card-' + cual).classList.remove('oculto');
-            }
-        </script>
     </body>
 </html>

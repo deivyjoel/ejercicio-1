@@ -1,0 +1,15 @@
+Lógica básica de Register
+1. Validar que los campos no estén vacíos
+2. Validar formato de email
+3. Validar longitud mínima de contraseña
+4. Verifica que el email no esté ya registrada
+5. Hashear contraseña
+
+Lógica básica de login
+1. Validar que los campos no estén vacíos
+2. Buscar el usurio por email
+3. Verifica la contraseña con el Hashear
+4. Guardar la sesión
+5. Redigir al index.php
+
+

@@ -1,10 +1,10 @@
 <?php
 session_start();
-
 if(empty($_SESSION['usuario'])){
     header('Location: inicio_sesion.html');
     exit;
 }
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>

@@ -5,29 +5,50 @@ class Usuario extends Conectar{
     public function register($nombre, $email, $password){
         try{
             $conectar = parent::Conexion();
+
+            // Verifica email duplicado
+            $stmt = $conectar->prepare("SELECT usu_id FROM b_usuario WHERE usu_email=?");
+            $stmt->bindValue(1, $email);
+            $stmt->execute();
+            if ($stmt->fetch()) {
+                return ["success" => false, "error" => "El email ya está registrado"];
+            }
+
+            // Hashear contraseña
+            $hash = password_hash($password, PASSWORD_BCRYPT);
+
+
+            // Insertar usuario
             $sql = "
-                INSERT INTO b_usuario(usu_nom, usu_email, usu_password, usu_rol)
+                INSERT INTO b_usuario(usu_nom, usu_email, usu_pass, usu_rol)
                 VALUES (?, ?, ?, 'usuario')
             ";
             $stmt = $conectar->prepare($sql);
             $stmt->bindValue(1, $nombre);
             $stmt->bindValue(2, $email);
-            $stmt->bindValue(3, password_hash($password, PASSWORD_BCRYPT));
+            $stmt->bindValue(3, $hash);
             $stmt->execute();
+            if ($stmt->rowCount() === 0) {
+                return ["success" => false, "error" => "No se pudo crear el usuario"];
+            }
 
             return ["success" => true];
-        } catch(Exception $e){
+        } catch(Throwable $e){
+            error_log("ERROR en register: " . $e->getMessage());
             return [
                 "success" => false,
-                "error" => $e->getMessage()
+                "error" => "Error al crear el usuario"
             ];
         }
     }
 
+
+
     public function login($email, $password){
         try{
             $conectar = parent::Conexion();
-
+            
+            // Busca al usuario por email
             $sql = "SELECT * FROM b_usuario WHERE usu_email = ?";
             $stmt = $conectar->prepare($sql);
             $stmt->bindValue(1, $email);
@@ -35,82 +56,22 @@ class Usuario extends Conectar{
 
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($user && password_verify($password, $user["usu_password"])) {
+            // Validar contraseña
+            if ($user && password_verify($password, $user["usu_pass"])) {
                 return [
                     "success" => true,
-                    "user" => $user
+                    "user" => $user 
                 ];
             }
 
             return ["success" => false];
-        } catch(Exception $e){
-            return [
-                "success" => false,
-                "error" => $e->getMessage()
-            ];
-        }
-    }
-
-    public function get_usuario(){
-        try{
-            $conectar = parent::Conexion();
-
-            $sql = "SELECT * FROM b_usuario WHERE usu_est=1";
-            $stmt = $conectar->prepare($sql);
-            $stmt->execute();
-
-            return [
-                "success" => true,
-                "object" => $stmt->fetchAll(PDO::FETCH_ASSOC)
-            ];
-        } catch(Exception $e){
-            return [
-                "success" => false,
-                "error" => $e->getMessage()
-            ];
-        }
-    }
-
-    public function insert_usuario($nombre, $email, $rol){
-        try{
-            $conectar = parent::Conexion();
-
-            $sql = "INSERT INTO b_usuario (usu_nom, usu_email, usu_rol, usu_est) VALUES (?, ?, ?, 1)";
-            $stmt = $conectar->prepare($sql);
-            $stmt->bindValue(1, $nombre);
-            $stmt->bindValue(2, $email);
-            $stmt->bindValue(3, $rol);
-            $stmt->execute();
-
-            return ["success" => true];
-        } catch(Exception $e){
-            return [
-                "success" => false,
-                "error" => $e->getMessage()
-            ];
-        }
-    }
-
-    public function update_usuario($id, $nombre, $email, $rol){
-        try{
-            $conectar = parent::Conexion();
-
-            $sql = "UPDATE b_usuario SET usu_nom=?, usu_email=?, usu_rol=? WHERE usu_id=?";
-            $stmt = $conectar->prepare($sql);
-            $stmt->bindValue(1, $nombre);
-            $stmt->bindValue(2, $email);
-            $stmt->bindValue(3, $rol);
-            $stmt->bindValue(4, $id);
-            $stmt->execute();
-
-            return ["success" => true];
-        } catch(Exception $e){
-            return [
-                "success" => false,
-                "error" => $e->getMessage()
-            ];
-        }
+            } catch(Throwable $e){
+                error_log("ERROR en login: " . $e->getMessage());
+                return [
+                    "success" => false,
+                    "error" => "Error al logear el usuario"
+                ];
+            }
     }
 }
-
 ?>
