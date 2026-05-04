@@ -1,0 +1,26 @@
+<div class="content">
+
+  <section class="turno-activo-section">
+    <div id="turno-activo" class="card turno-card" style="display:none">
+      <p class="turno-label">Tu turno</p>
+      <h1 id="turno-numero" class="turno-numero"></h1>
+      <p id="turno-servicio" class="turno-info"></p>
+      <p id="turno-estado" class="turno-estado"></p>
+      <p id="turno-posicion" class="turno-info"></p>
+      <button class="btn btn-cancelar" id="btn-cancelar-turno">Cancelar turno</button>
+    </div>
+
+    <button class="btn" id="btn-reservar-turno" style="display:none">
+      Reservar Turno
+    </button>
+  </section>
+
+  <section class="historial-section">
+    <h3 class="historial-titulo">Historial</h3>
+    <div id="historial-lista">
+      <p class="historial-vacio">No hay turnos anteriores.</p>
+    </div>
+  </section>
+
+</div>
+<script src="/banco_sistema_atc/views/usuario/inicio.js"></script>

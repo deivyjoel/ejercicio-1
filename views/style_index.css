@@ -28,6 +28,7 @@ body {
     display: flex;
     flex: 1;
     position: relative;
+    min-height: 0; 
 }
 
 /* Sidebar */
@@ -82,6 +83,7 @@ body {
 .content {
     flex: 1;
     padding: 30px;
+    min-height: 0; 
     display: flex;
     flex-direction: column;
 }
@@ -116,25 +118,154 @@ body {
     background-color: #3C3489;
 }
 
-.turnos {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+/* Lista de servicios */
+/* ✅ Ahora */
+#servicios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    padding: 8px 0;
 }
-
-/* card-servicio */
 .card-servicio {
     border: 1px solid #AFA9EC;
     background-color: #FFFFFF;
-    padding: 15px;
-    margin: 10px;
+    padding: 1.25rem;
     border-radius: 14px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: border-color 0.2s, transform 0.2s;
     color: #26215C;
 }
 
 .card-servicio:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
+    border-color: #534AB7;
     box-shadow: 0 4px 10px rgba(83, 74, 183, 0.15);
+}
+
+.card-servicio h4 {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0 0 4px;
+}
+
+.card-servicio p {
+    font-size: 13px;
+    color: #888780;
+    margin: 0;
+}
+
+
+
+
+
+
+/* Turno activo */
+.turno-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 30px;
+    max-width: 380px;
+    margin: 0 auto 30px;
+}
+
+.turno-label {
+    font-size: 13px;
+    color: #7F77DD;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.turno-numero {
+    font-size: 3rem;
+    font-weight: 500;
+    color: #26215C;
+    margin: 0;
+}
+
+.turno-info {
+    font-size: 14px;
+    color: #534AB7;
+    margin: 0;
+}
+
+.turno-estado {
+    font-size: 13px;
+    font-weight: 500;
+    color: #3C3489;
+    background: #EEEDFE;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin: 4px 0;
+}
+
+.btn-cancelar {
+    margin-top: 12px;
+    background-color: #ffffff;
+    color: #A32D2D;
+    border: 1px solid #A32D2D;
+}
+
+.btn-cancelar:hover {
+    background-color: #FCEBEB;
+}
+
+/* Historial */
+.historial-section {
+    margin-top: 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.historial-titulo {
+    font-size: 15px;
+    font-weight: 500;
+    color: #26215C;
+    margin-bottom: 10px;
+}
+
+.historial-item {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 10px 14px;
+    background: #ffffff;
+    border: 1px solid #AFA9EC;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #3C3489;
+}
+
+.historial-numero {
+    font-weight: 500;
+    min-width: 50px;
+}
+
+.historial-servicio {
+    flex: 1;
+}
+
+.historial-estado {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.historial-estado--atendido  { background: #EAF3DE; color: #3B6D11; }
+.historial-estado--cancelado { background: #FCEBEB; color: #A32D2D; }
+.historial-estado--pendiente { background: #EEEDFE; color: #534AB7; }
+.historial-estado--en_atencion { background: #FAEEDA; color: #854F0B; }
+
+.historial-fecha {
+    font-size: 12px;
+    color: #888780;
+}
+
+.historial-vacio {
+    font-size: 14px;
+    color: #888780;
 }

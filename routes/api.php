@@ -6,6 +6,9 @@ try {
     require_once("../config/config.php");
     require_once("../models/Usuario.php");
     require_once("../controller/usuario.php");
+    require_once("../controller/servicio.php");
+    require_once("../models/Turno.php");
+    require_once("../controller/turno.php");
 
 
     $method = $_SERVER['REQUEST_METHOD'];
@@ -14,10 +17,13 @@ try {
     $response = match(true) {
         $method === 'POST' && $uri === '/auth/register' => fn() => (new AuthController)->register(),
         $method === 'POST' && $uri === '/auth/login'    => fn() => (new AuthController)->login(),
-        $method === 'GET'  && $uri === '/usuarios'      => fn() => (new UsuarioController)->index(),
-        $method === 'POST' && $uri === '/usuarios'      => fn() => (new UsuarioController)->store(),
         $method === 'POST' && $uri === '/auth/logout' => fn() => (new AuthController)->deslog(),
-        $method === 'POST' && $uri === '/get_servicios' => fn() => ()
+        $method === 'GET' && $uri === '/servicios' => fn() => (new ServicioController)->listar(),
+        $method === 'GET'  && $uri === '/turnos'          => fn() => (new TurnoController)->historial_completo(),
+        $method === 'GET'  && $uri === '/turnos/historial'=> fn() => (new TurnoController)->historial(),
+        $method === 'POST' && $uri === '/turnos/reservar' => fn() => (new TurnoController)->reservar(),
+        $method === 'POST'  && $uri === '/turnos/cancelar'   => fn() => (new TurnoController)->cancelar_reserva(),
+        $method === 'GET'  && $uri === '/turnos/activo'   => fn() => (new TurnoController)->mi_turno_activo(),
         default => function() {
             http_response_code(404);
             echo json_encode(["error" => "Ruta no encontrada"]);

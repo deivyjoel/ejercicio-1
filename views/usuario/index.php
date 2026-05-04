@@ -31,6 +31,6 @@ if(empty($_SESSION['usuario'])){
 
             </div>
         </div>
-        <script src="app.js"></script>
+        <script src="/banco_sistema_atc/views/usuario/index.js"></script>
     </body>
 </html>

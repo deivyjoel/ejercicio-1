@@ -2,18 +2,18 @@
 require_once("../config/config.php");
 require_once("../models/Servicio.php");
 
-$servicio = new Servicio();
+class ServicioController {
 
-switch($_GET["op"]){
+    public function listar() {
+        $servicio = new Servicio();
+        $result = $servicio->get_servicio();
 
-    case "listar":
-        $data = $servicio->get_servicio();
-
-        if ($data["success"]) {
-            echo json_encode($data["object"]);
-        } else {
-            echo json_encode([]);
+        if (!$result['success']) {
+            http_response_code(500);
+            echo json_encode(["status" => "error", "message" => "Error al obtener servicios"]);
+            return;
         }
-        exit;
+
+        echo json_encode(["status" => "success", "data" => $result['object']]);
+    }
 }
-?>

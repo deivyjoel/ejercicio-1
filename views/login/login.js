@@ -47,6 +47,7 @@ document.getElementById("form-login").addEventListener("submit", async function 
         }
         
 
+        // Aqui se elige si la interfaz comienza a correr en admin o en usuario
         if (data.status === "success") {
             console.log(data)
             if (data.rol === "admin") {
