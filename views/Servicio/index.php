@@ -1,5 +1,4 @@
 <?php require_once("../Main/sesion.php"); ?>
-
 <!doctype html>
 <html lang="es">
 <head>
@@ -8,13 +7,13 @@
 </head>
 <body data-topbar="colored">
     <div id="layout-wrapper">
-        // HEADER
+
         <?php require_once("../Main/mainheader.php"); ?>
-        // SIDEBAR
         <?php require_once("../Main/mainleftsiderbar.php"); ?>
-        // MAIN CONTENT 
+
         <div class="main-content">
             <div class="page-content">
+
                 <!-- Page-Title -->
                 <div class="page-title-box">
                     <div class="container-fluid">
@@ -30,7 +29,6 @@
                 </div>
                 <!-- end page title -->
 
-                <!-- start page-content hwere -->
                 <div class="page-content-wrapper">
                     <div class="container-fluid">
                         <div class="row">
@@ -38,7 +36,8 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <?php if ($usu_rol === 1){ ?>
-                                            <button class="btn btn-secondary waves-effect waves-light mb-4" id="btnnuevo">
+                                            <button class="btn waves-effect waves-light mb-4" id="btnnuevo" 
+                                                    style="background-color:#534AB7; color:#fff; border:none;">
                                                 <i class="fa fa-plus-square me-2"></i> Nuevo Servicio
                                             </button>
                                         <?php } ?>
@@ -69,15 +68,14 @@
                     </div>
                 </div>
                 <!-- end page-content-wrapper -->
+
             </div>
 
-            
+            <?php require_once("../Main/mainfooter.php"); ?>
         </div>
-        //FOOTER
-        <?php require_once("../Main/mainfooter.php"); ?>
     </div>
 
-    <!-- SCRIPTS -->
+    <!-- SCRIPT -->
     <?php require_once("modalMantenimiento.php"); ?>
     <?php require_once("../Main/mainjs.php"); ?>
     <script src="./servicio.js"></script>

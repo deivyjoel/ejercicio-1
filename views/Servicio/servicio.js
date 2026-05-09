@@ -87,15 +87,12 @@ function reservar(ser_id) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Turno reservado',
-                        html: 'Tu turno es: <strong>' + data.tur_pre + '</strong>',
                         confirmButtonText: 'Aceptar'
                     }).then(() => {
-                        // 1. Recargar la tabla
                         var table = $('#servicio_data').DataTable();
                         table.ajax.reload(function(json) {
-                            // 2. Redirigir una vez recargada (callback)
                             window.location.href = '../Inicio/index.php';
-                        }, false); // 'false' mantiene la paginación actual
+                        }, false); 
                     });
                 } else {
                     Swal.fire('Error', data.message, 'error');
@@ -135,7 +132,6 @@ function guardaryeditar(e) {
                 }
             } catch (e) {
                 Swal.fire('Error', 'Respuesta inesperada del servidor.', 'error');
-                console.log("Error al parsear JSON: ", response);
             }
         },
         error: function() {
@@ -146,6 +142,7 @@ function guardaryeditar(e) {
 
 
 function editar(ser_id) {
+    $("#lbltitulo").html('Editar servicio');
     $.post("../../controller/servicioController.php?op=mostrar", { ser_id: ser_id }, function(data) {
         try {
             data = JSON.parse(data);
@@ -206,4 +203,4 @@ $(document).on("click", "#btnnuevo", function() {
 
 init();
 
-//TOD0 NATIVO
+

@@ -6,44 +6,55 @@ require_once("../models/Servicio.php");
 $servicio = new Servicio();
 
 switch ($_GET["op"]) {  
+    
     case 'listar':
-        $datos = $servicio->get_servicios();
-        $data = array();
-        foreach ($datos as $row) {
-            $sub_array = array();
-            $sub_array[] = $row["ser_nom"];
-            $sub_array[] = $row["ser_dur_prom"] . ' min';
+        try {
+            $datos = $servicio->get_servicios();
 
-            // Columna Detalle
-            if ($_SESSION['usuario']['rol'] === 1) {
+            $data = array();
+            foreach ($datos as $row) {
+                $sub_array = array();
+                $sub_array[] = $row["ser_nom"];
+                $sub_array[] = $row["ser_dur_prom"] . ' min';
 
-                $sub_array[] = '
-                    <button onclick="editar(' . $row["ser_id"] . ');" class="btn btn-sm" style="background-color:#CECBF6; color:#3C3489; border:none;">
-                        <i class="mdi mdi-eye"></i> Detalle
-                    </button>';
-                $sub_array[] = '
-                    <button onclick="eliminar(' . $row["ser_id"] . ');" class="btn btn-sm" style="background-color:#E24B4A; color:#FFFFFF; border:none;">
-                        <i class="mdi mdi-trash-can"></i>
-                    </button>';
-            } else {
-                $sub_array[] = '
-                    <button onclick="reservar(' . $row["ser_id"] . ');" class="btn btn-sm" style="background-color:#534AB7; color:#FFFFFF; border:none;">
-                        <i class="mdi mdi-calendar-plus"></i> Reservar
-                    </button>';
+                if ($_SESSION['usuario']['rol'] === 1) {
+                    $sub_array[] = '
+                        <button onclick="editar(' . $row["ser_id"] . ');" class="btn btn-sm" style="font-size:0.85em; background-color:#CECBF6; color:#3C3489; border:none;">
+                            <i class="mdi mdi-eye"></i> DETALLE
+                        </button>';
+                    $sub_array[] = '
+                        <button onclick="eliminar(' . $row["ser_id"] . ');" class="btn btn-sm" style="font-size:0.85em; background-color:#E24B4A; color:#FFFFFF; border:none;">
+                            <i class="mdi mdi-trash-can"></i>
+                        </button>';
+                } else {
+                    $sub_array[] = '
+                        <button onclick="reservar(' . $row["ser_id"] . ');" class="btn btn-sm" style="background-color:#534AB7; color:#FFFFFF; border:none;">
+                            <i class="mdi mdi-calendar-plus"></i> Reservar
+                        </button>';
+                }
+
+                $data[] = $sub_array;
             }
 
-            $data[] = $sub_array;
-            }
 
             $results = array(
-                "sEcho" => 1,
-                "iTotalRecords" => count($data),
+                "sEcho"                => 1,
+                "iTotalRecords"        => count($data),
                 "iTotalDisplayRecords" => count($data),
-                "aaData" => $data
+                "aaData"               => $data
             );
-
             echo json_encode($results);
-            break;
+
+        } catch (Throwable $e) {
+            error_log("ERROR en listar servicios: " . $e->getMessage());
+            echo json_encode([
+                "sEcho" => 1,
+                "iTotalRecords" => 0,
+                "iTotalDisplayRecords" => 0,
+                "aaData" => []
+            ]);
+        }
+        break;
     case 'guardaryeditar':
         try {
             $ser_id       = empty($_POST["id_servicio"]) ? null : $_POST["id_servicio"];

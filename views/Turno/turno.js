@@ -1,13 +1,9 @@
 function init() {
     $("#turno_form").on("submit", function(e) {
-        console.log("alo we")
         e.preventDefault();
         let nuevoEstado = $(document.activeElement).data("estado");
         confirmarEstado(nuevoEstado);
-
     });
-
-    
 }
 
 $(document).ready(function() {
@@ -51,16 +47,21 @@ $(document).ready(function() {
     });
 });
 
-function cambiarEstado(tur_id, estadoActual, codigo) {
+function cambiarEstado(tur_id) {
     $.post("../../controller/turnoController.php?op=mostrar", { tur_id: tur_id }, function(data) {
         try {
 
             data = JSON.parse(data);
-            console.log(data)
             $("#modal_tur_id").val(data.tur_id);
             $("#modal_ser_id").val(data.tur_ser_id);
-            $("#modal_tur_codigo").text(data.tur_pre + data.tur_n_tur);
+            $("#modal_tur_codigo").text(data.tur_pre);
             $("#modal_tur_estado_actual").text(data.tur_est);
+            if (data.tur_est == 1){
+                $("#modal_tur_estado_actual").text("En espera");
+            } else if (data.tur_est == 2){
+                $("#modal_tur_estado_actual").text("Atendiendo");
+            } 
+
 
             // Armar botones según estado actual
             let botones = '';
@@ -75,7 +76,6 @@ function cambiarEstado(tur_id, estadoActual, codigo) {
             $("#modalEstado").modal('show');
 
         } catch (e) {
-            console.log("no llegue aki")
             Swal.fire('Error', 'No se pudo cargar la información del turno.', 'error');
         }
     });
@@ -83,7 +83,6 @@ function cambiarEstado(tur_id, estadoActual, codigo) {
 }
 
 function confirmarEstado(nuevoEstado) {
-    console.log(nuevoEstado)
     let tur_id = $('#modal_tur_id').val();
     let ser_id = $('#modal_ser_id').val();
 
@@ -95,10 +94,9 @@ function confirmarEstado(nuevoEstado) {
         if (res.success) {
             $('#modalEstado').modal('hide');
             $("#turno_data").DataTable().ajax.reload();
-            console.log("siiii aki si llegue")
             
         } else {
-            alert("Error: " + res.mensaje);
+            Swal.fire('Error', res.mensaje, 'error');
         }
     }, "json");
 }

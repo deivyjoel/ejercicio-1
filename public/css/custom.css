@@ -1,0 +1,85 @@
+/* ===== PALETA PERSONALIZADA - BANCA ATC ===== */
+
+/* Variables globales */
+:root {
+    --brand-deep:    #26215C;
+    --brand-royal:   #3C3489;
+    --brand-purple:  #534AB7;
+    --brand-mid:     #7F77DD;
+    --brand-soft:    #AFA9EC;
+    --brand-lavender:#CECBF6;
+    --brand-ghost:   #EEEDFE;
+    --brand-green:   #1DB97A;
+    --brand-red:     #E24B4A;
+}
+
+/* Topbar */
+body[data-topbar=colored] #page-topbar {
+    background-color: var(--brand-royal) !important;
+}
+body[data-topbar=colored] .dropdown.show .header-item {
+    background-color: var(--brand-deep) !important;
+}
+
+/* Sidebar */
+body[data-sidebar=colored] .vertical-menu,
+body[data-sidebar=colored] .navbar-brand-box {
+    background-color: var(--brand-deep) !important;
+}
+
+/* Page title box */
+.page-title-box {
+    background-color: var(--brand-royal) !important;
+}
+
+/* Botón primario */
+.btn-primary {
+    background-color: var(--brand-purple) !important;
+    border-color: var(--brand-purple) !important;
+    color: #fff !important;
+}
+.btn-primary:hover {
+    background-color: var(--brand-deep) !important;
+    border-color: var(--brand-deep) !important;
+}
+
+/* Links y activos en sidebar */
+.mm-active,
+.mm-active .active,
+body[data-sidebar=colored] #sidebar-menu ul li .mm-active {
+    color: var(--brand-lavender) !important;
+}
+
+/* Badges de estado */
+.badge-pendiente  { background-color: var(--brand-lavender); color: var(--brand-royal); }
+.badge-atencion   { background-color: var(--brand-purple);   color: #fff; }
+.badge-atendido   { background-color: var(--brand-green);    color: #fff; }
+.badge-cancelado  { background-color: var(--brand-red);      color: #fff; }
+
+/* DataTables header sticky */
+.table-rep-plugin .fixed-solution .sticky-table-header {
+    background-color: var(--brand-purple) !important;
+    border-color: var(--brand-purple) !important;
+}
+
+/* SweetAlert2 botón confirm */
+.swal2-confirm {
+    background-color: var(--brand-purple) !important;
+}
+
+/* Focus / active en inputs */
+.form-control:focus {
+    border-color: var(--brand-soft) !important;
+    box-shadow: 0 0 0 0.15rem rgba(83, 74, 183, 0.25) !important;
+}
+
+.btn-outline-brand {
+    border: 1px solid var(--brand-purple);
+    color: var(--brand-purple);
+    background-color: transparent;
+    border-radius: 4px;
+}
+.btn-outline-brand:hover {
+    background-color: var(--brand-purple);
+    color: #fff;
+}

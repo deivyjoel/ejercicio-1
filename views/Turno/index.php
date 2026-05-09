@@ -1,5 +1,4 @@
 <?php require_once("../Main/sesion.php"); ?>
-
 <!doctype html>
 <html lang="es">
 <head>
@@ -8,11 +7,10 @@
 </head>
 <body data-topbar="colored">
     <div id="layout-wrapper">
-        // HEADER
+
         <?php require_once("../Main/mainheader.php"); ?>
-        // SIDEBAR
         <?php require_once("../Main/mainleftsiderbar.php"); ?>
-        // MAIN CONTENT 
+
         <div class="main-content">
             <div class="page-content">
 
@@ -63,12 +61,11 @@
                 </div>
 
             </div>
+        
+            <?php require_once("../Main/mainfooter.php"); ?>
         </div>
-        //FOOTER
-        <?php require_once("../Main/mainfooter.php"); ?>
     </div>
 
-    <!-- SCRIPTS -->
     <?php require_once("modalMantenimiento.php"); ?>
     <?php require_once("../Main/mainjs.php"); ?>
     <script src="./turno.js"></script>

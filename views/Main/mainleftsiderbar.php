@@ -8,12 +8,12 @@
                         <a href="../../views/inicio/" class="waves-effect">
                             <div class="d-inline-block icons-sm me-1"><i class="mdi mdi-home"></i></div>
                             <span>Inicio</span>
-                        </a>
+                        </a>    
                     </li>
                     <li>
                         <a href="../../views/Turno/" class="waves-effect">
                             <div class="d-inline-block icons-sm me-1"><i class="mdi mdi-history"></i></div>
-                            <span>Historial de Turnos</span>
+                            <span>Turnos</span>
                         </a>
                     </li>
                     <li>
