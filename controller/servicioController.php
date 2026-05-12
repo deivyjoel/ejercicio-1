@@ -16,6 +16,10 @@ switch ($_GET["op"]) {
                 $sub_array = array();
                 $sub_array[] = $row["ser_nom"];
                 $sub_array[] = $row["ser_dur_prom"] . ' min';
+                $sub_array[] = '
+                    <button onclick="reservar(' . $row["ser_id"] . ');" class="btn btn-sm" style="background-color:#534AB7; color:#FFFFFF; border:none;">
+                        <i class="mdi mdi-calendar-plus"></i> Reservar
+                    </button>';
 
                 if ($_SESSION['usuario']['rol'] === 1) {
                     $sub_array[] = '
@@ -26,13 +30,9 @@ switch ($_GET["op"]) {
                         <button onclick="eliminar(' . $row["ser_id"] . ');" class="btn btn-sm" style="font-size:0.85em; background-color:#E24B4A; color:#FFFFFF; border:none;">
                             <i class="mdi mdi-trash-can"></i>
                         </button>';
-                } else {
-                    $sub_array[] = '
-                        <button onclick="reservar(' . $row["ser_id"] . ');" class="btn btn-sm" style="background-color:#534AB7; color:#FFFFFF; border:none;">
-                            <i class="mdi mdi-calendar-plus"></i> Reservar
-                        </button>';
                 }
 
+    
                 $data[] = $sub_array;
             }
 
@@ -60,7 +60,10 @@ switch ($_GET["op"]) {
             $ser_id       = empty($_POST["id_servicio"]) ? null : $_POST["id_servicio"];
             $ser_nom      = trim($_POST["view_ser_nom"]);
             $ser_dur_prom = intval($_POST["view_ser_dur_prom"]);
-
+            if (empty($ser_nom)){
+                throw new Exception("El nombre del servicio es obligatorio");
+            }
+            
             $existe = $servicio->get_servicio_x_nombre($ser_nom);
             if (is_array($existe) && count($existe) > 0) {
                 if (empty($ser_id) || $existe[0]["ser_id"] != $ser_id) {

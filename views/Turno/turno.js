@@ -53,6 +53,7 @@ function cambiarEstado(tur_id) {
 
             data = JSON.parse(data);
             $("#modal_tur_id").val(data.tur_id);
+            $('#text_estado').text('');
             $("#modal_ser_id").val(data.tur_ser_id);
             $("#modal_tur_codigo").text(data.tur_pre);
             $("#modal_tur_estado_actual").text(data.tur_est);
@@ -66,10 +67,13 @@ function cambiarEstado(tur_id) {
             // Armar botones según estado actual
             let botones = '';
             if (data.tur_est == 1) {
+                $('#text_estado').text("Cambiar a: ")
                 botones += '<button type="submit" class="btn btn-primary" data-estado="2">Pasar a ATENDIENDO</button>';
                 botones += '<button type="submit" class="btn btn-danger ms-2" data-estado="3">CANCELAR turno</button>';
             } else if (data.tur_est == 2) {
+                $('#text_estado').text("Cambiar a: ")
                 botones += '<button class="btn btn-success" data-estado="4">Marcar como ATENDIDO</button>';
+            } else {
             }
 
             $('#modal_botones_estado').html(botones);

@@ -48,12 +48,10 @@
                                                 <tr>
                                                     <th>Nombre</th>
                                                     <th>Duración Promedio</th>
+                                                    <th>Reservar</th>
                                                     <?php if ($usu_rol === 1) { ?>
                                                             <th></th>
                                                             <th></th>
-                                                    <?php } ?>
-                                                    <?php if ($usu_rol === 2){ ?>
-                                                            <th>Reservar</th>
                                                     <?php } ?>
                                             </thead>
                                             <tbody>

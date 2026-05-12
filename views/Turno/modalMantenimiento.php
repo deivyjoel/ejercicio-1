@@ -15,7 +15,7 @@
                     <p>Estado actual: <strong id="modal_tur_estado_actual"></strong></p>
 
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Cambiar a:</label>
+                        <label class="form-label fw-bold" id="text_estado"></label>
                         <div id="modal_botones_estado" class="d-flex gap-2 flex-wrap"></div>
                     </div>
                 </div>

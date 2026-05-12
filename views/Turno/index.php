@@ -44,6 +44,7 @@
                                                     <th>Fecha</th>
                                                     <?php if ($usu_rol === 1) { ?>
                                                             <th>Usuario</th>
+                                                            <th></th>
                                                     <?php } ?>
                                                     <th>Estado</th>
                                                 </tr>

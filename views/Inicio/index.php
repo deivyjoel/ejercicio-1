@@ -1,8 +1,8 @@
 <?php 
+    require_once("../Main/sesion.php"); 
     require_once("../../config/conexion.php");
     require_once("../../models/Turno.php");
-    require_once("../../models/Servicio.php");
-    require_once("../Main/sesion.php"); 
+    require_once("../../models/Servicio.php"); 
 
     $turnoModel  = new Turno();
     $servicioModel = new Servicio();

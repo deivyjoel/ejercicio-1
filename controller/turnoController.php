@@ -24,17 +24,19 @@ switch ($_GET["op"]) {
                 $tur_pre = strtoupper(substr($row["ser_nom"], 0, 3));
                 $sub_array[] = $tur_pre . str_pad($row["tur_n_tur"], 3, "0", STR_PAD_LEFT);
                 $sub_array[] = $row["ser_nom"]; 
-                $sub_array[] = $row["tur_fec_hor"];
+                $sub_array[] = date("d/m/Y h:i:s A", strtotime($row["tur_fec_hor"]));
                 $sub_array[] = $row["usu_nom"];
+                $sub_array[] = '
+                        <button class="btn btn-sm" style="font-size:0.85em; background-color:#CECBF6; color:#3C3489; border:none;" onclick="cambiarEstado(' . $row["tur_id"] . ')">
+                            <i class="mdi mdi-eye"></i> DETALLE
+                        </button>';   
 
                 switch ($row["tur_est"]) {
                     case 1:
-                        $sub_array[] = '<span class="badge" style="font-size:1em; background-color:#CECBF6; cursor:pointer; color: #3C3489" 
-                            onclick="cambiarEstado(' . $row["tur_id"] . ')">EN ESPERA</span>';
+                        $sub_array[] = '<span class="badge" style="font-size:1em; background-color:#CECBF6; color: #3C3489">EN ESPERA</span>';
                         break;
                     case 2:
-                        $sub_array[] = '<span class="badge" style="font-size:1em; background-color:#534AB7; cursor:pointer; color: #FFFFFF" 
-                            onclick="cambiarEstado(' . $row["tur_id"] . ')">ATENDIENDO</span>';
+                        $sub_array[] = '<span class="badge" style="font-size:1em; background-color:#534AB7; color: #FFFFFF">ATENDIENDO</span>';
                         break;
                     case 4:
                         $sub_array[] = '<span class="badge" style="font-size:1em; background-color:#1DB97A; color:#ffffff">ATENDIDO</span>';
@@ -71,7 +73,7 @@ switch ($_GET["op"]) {
                 $tur_pre = strtoupper(substr($row["ser_nom"], 0, 3));
                 $sub_array[] = $tur_pre . str_pad($row["tur_n_tur"], 3, "0", STR_PAD_LEFT);
                 $sub_array[] = $row["ser_nom"];
-                $sub_array[] = $row["tur_fec_hor"];
+                $sub_array[] = date("d/m/Y h:i:s A", strtotime($row["tur_fec_hor"]));
 
                 switch ($row["tur_est"]) {
                     case 1:
@@ -88,13 +90,9 @@ switch ($_GET["op"]) {
                         break;
                     default:
                         $sub_array[] = '<span class="badge" style="font-size:0.85em; background-color:#CECBF6; color:#3C3489;">' . $row["tur_est"] . '</span>';
+                        break;
                 }
 
-                if ($row["tur_est"] == 1) {
-                    $sub_array[] = '<button type="button" onClick="cancelar(' . $row["tur_id"] . ');" class="btn btn-outline-danger btn-icon"><div><i class="mdi mdi-trash-can"></i></div></button>';
-                } else {
-                    $sub_array[] = '-';
-                }
 
                 $data[] = $sub_array;
             }
@@ -110,6 +108,7 @@ switch ($_GET["op"]) {
             echo $json;
             break;
         }
+        
     case 'turno_activo':
         if (empty($_SESSION['usuario'])) {
             echo json_encode(["success" => false, "message" => "No autenticado"]);
